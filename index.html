@@ -7,75 +7,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 <style>
-:root{--bg:#f5f6fa;--bg-card:#ffffff;--bg-sidebar:#1a1d2e;--bg-sidebar-hover:#252840;--bg-sidebar-active:#2d3154;--text:#1a1d2e;--text-secondary:#6b7085;--text-sidebar:#a8adc0;--text-sidebar-active:#ffffff;--border:#e2e4ed;--shadow:0 2px 12px rgba(0,0,0,0.06);--shadow-lg:0 8px 32px rgba(0,0,0,0.1);--radius:12px;--radius-sm:8px;--transition:0.2s ease}
-[data-theme="dark"]{--bg:#0f1117;--bg-card:#1a1d2e;--bg-sidebar:#0a0c14;--bg-sidebar-hover:#151825;--bg-sidebar-active:#1e2136;--text:#e2e4ed;--text-secondary:#8b8fa8;--border:#2a2d42;--shadow:0 2px 12px rgba(0,0,0,0.3);--shadow-lg:0 8px 32px rgba(0,0,0,0.4)}
+:root{--bg:#f5f6fa;--bg-card:#fff;--bg-sidebar:#1a1d2e;--bg-sidebar-hover:#252840;--bg-sidebar-active:#2d3154;--text:#1a1d2e;--text-secondary:#6b7085;--text-sidebar:#a8adc0;--text-sidebar-active:#fff;--border:#e2e4ed;--shadow:0 2px 12px rgba(0,0,0,.06);--shadow-lg:0 8px 32px rgba(0,0,0,.1);--radius:12px;--radius-sm:8px;--tr:.2s ease}
+[data-theme="dark"]{--bg:#0f1117;--bg-card:#1a1d2e;--bg-sidebar:#0a0c14;--bg-sidebar-hover:#151825;--bg-sidebar-active:#1e2136;--text:#e2e4ed;--text-secondary:#8b8fa8;--border:#2a2d42;--shadow:0 2px 12px rgba(0,0,0,.3);--shadow-lg:0 8px 32px rgba(0,0,0,.4)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;transition:background var(--transition),color var(--transition)}
-.sidebar{width:260px;background:var(--bg-sidebar);padding:24px 16px;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform 0.3s ease}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;transition:background var(--tr),color var(--tr)}
+
+/* SIDEBAR */
+.sidebar{width:260px;background:var(--bg-sidebar);padding:24px 16px;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s ease}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:8px 12px;margin-bottom:32px}
 .sidebar-brand .logo{width:40px;height:40px;background:linear-gradient(135deg,#6366f1,#a855f7);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:18px}
 .sidebar-brand h1{color:#fff;font-size:16px;font-weight:700;line-height:1.2}
 .sidebar-brand h1 span{color:#a8adc0;font-size:11px;font-weight:500;display:block}
 .nav-section{margin-bottom:24px}
 .nav-section-title{color:#5a5f78;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:0 12px;margin-bottom:8px}
-.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);color:var(--text-sidebar);cursor:pointer;transition:all var(--transition);font-size:14px;font-weight:500;position:relative}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);color:var(--text-sidebar);cursor:pointer;transition:all var(--tr);font-size:14px;font-weight:500;position:relative}
 .nav-item:hover{background:var(--bg-sidebar-hover);color:#d1d5e8}
 .nav-item.active{background:var(--bg-sidebar-active);color:var(--text-sidebar-active)}
 .nav-item.active::before{content:'';position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:3px;height:24px;border-radius:0 3px 3px 0;background:linear-gradient(180deg,#6366f1,#a855f7)}
 .nav-item svg{width:20px;height:20px;flex-shrink:0}
 .nav-item .badge{margin-left:auto;background:#ef4444;color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;min-width:20px;text-align:center}
-.theme-toggle{margin-top:auto;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);color:var(--text-sidebar);cursor:pointer;transition:all var(--transition);font-size:14px;font-weight:500}
+.theme-toggle{margin-top:auto;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);color:var(--text-sidebar);cursor:pointer;transition:all var(--tr);font-size:14px;font-weight:500}
 .theme-toggle:hover{background:var(--bg-sidebar-hover);color:#d1d5e8}
+
+/* MAIN */
 .main{margin-left:260px;flex:1;padding:28px 32px;min-height:100vh}
-.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
 .page-header h2{font-size:24px;font-weight:800}
 .page-header .subtitle{color:var(--text-secondary);font-size:13px;margin-top:2px}
 .header-actions{display:flex;gap:10px;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition)}
-.btn-primary{background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;box-shadow:0 2px 8px rgba(99,102,241,0.3)}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,0.4)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all var(--tr)}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;box-shadow:0 2px 8px rgba(99,102,241,.3)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,.4)}
 .btn-secondary{background:var(--bg-card);color:var(--text);border:1px solid var(--border)}
 .btn-secondary:hover{background:var(--bg)}
-.btn-danger{background:#fee2e2;color:#dc2626}
-.btn-danger:hover{background:#fecaca}
-.btn-success{background:#dcfce7;color:#16a34a}
-.btn-success:hover{background:#bbf7d0}
+.btn-danger{background:#fee2e2;color:#dc2626}.btn-danger:hover{background:#fecaca}
+.btn-success{background:#dcfce7;color:#16a34a}.btn-success:hover{background:#bbf7d0}
 .btn-sm{padding:6px 14px;font-size:12px}
 .btn svg{width:16px;height:16px}
-.card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);transition:all var(--transition)}
+.card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);transition:all var(--tr)}
+
+/* SUMMARY */
 .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
 .summary-card{padding:20px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden}
 .summary-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:4px 0 0 4px}
 .summary-card.total::before{background:#6366f1}.summary-card.overdue::before{background:#ef4444}.summary-card.progress::before{background:#3b82f6}.summary-card.done::before{background:#22c55e}
-.summary-card .label{font-size:12px;color:var(--text-secondary);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.summary-card .label{font-size:12px;color:var(--text-secondary);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .summary-card .value{font-size:32px;font-weight:800;margin-top:4px;font-family:'JetBrains Mono',monospace}
 .summary-card.total .value{color:#6366f1}.summary-card.overdue .value{color:#ef4444}.summary-card.progress .value{color:#3b82f6}.summary-card.done .value{color:#22c55e}
+
+/* NOTIFICATIONS */
 .notifications{margin-bottom:28px}
 .notif-item{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#fef3c7;border:1px solid #fde68a;border-radius:var(--radius-sm);margin-bottom:8px;font-size:13px;font-weight:500;color:#92400e}
 [data-theme="dark"] .notif-item{background:#422006;border-color:#713f12;color:#fde68a}
 .notif-item svg{width:18px;height:18px;flex-shrink:0}
 .notif-item .notif-deadline{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
+
 .tab-page{display:none}.tab-page.active{display:block}
+
+/* CALENDAR */
 .calendar-nav{display:flex;align-items:center;gap:16px;margin-bottom:20px}
 .calendar-nav h3{font-size:18px;font-weight:700;min-width:200px}
-.calendar-nav button{width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:all var(--transition)}
+.calendar-nav button{width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:all var(--tr)}
 .calendar-nav button:hover{background:var(--bg)}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
 .calendar-header-cell{padding:10px;text-align:center;font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase}
-.calendar-cell{min-height:100px;padding:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--transition);position:relative}
-.calendar-cell:hover{box-shadow:var(--shadow)}.calendar-cell.other-month{opacity:0.4}.calendar-cell.today{border-color:#6366f1;border-width:2px}
+.calendar-cell{min-height:100px;padding:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--tr)}
+.calendar-cell:hover{box-shadow:var(--shadow)}.calendar-cell.other-month{opacity:.4}.calendar-cell.today{border-color:#6366f1;border-width:2px}
 .calendar-cell .day-number{font-size:13px;font-weight:700;margin-bottom:4px}
 .calendar-cell.today .day-number{background:#6366f1;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .calendar-task-chip{font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;margin-bottom:2px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+
+/* KANBAN */
 .kanban-filters{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
 .kanban-filters select,.kanban-filters input{padding:8px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-family:inherit;font-size:13px}
 .kanban-board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;min-height:500px}
 .kanban-column{background:var(--bg);border-radius:var(--radius);padding:16px;border:2px dashed var(--border);min-height:400px}
 .kanban-column-header{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border)}
 .kanban-column-header .dot{width:10px;height:10px;border-radius:50%}
-.kanban-column-header h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.kanban-column-header h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .kanban-column-header .count{margin-left:auto;background:var(--bg-card);border:1px solid var(--border);font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px}
-.kanban-card{background:var(--bg-card);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;border:1px solid var(--border);box-shadow:var(--shadow);cursor:grab;transition:all var(--transition)}
+.kanban-card{background:var(--bg-card);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;border:1px solid var(--border);box-shadow:var(--shadow);cursor:grab;transition:all var(--tr)}
 .kanban-card:active{cursor:grabbing}.kanban-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
 .kanban-card .task-name{font-size:13px;font-weight:700;margin-bottom:8px}
 .kanban-card .task-desc{font-size:11px;color:var(--text-secondary);margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -84,43 +97,52 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .kanban-card .deadline-text{color:var(--text-secondary);font-family:'JetBrains Mono',monospace;font-size:11px}
 .kanban-card .deadline-text.overdue{color:#ef4444;font-weight:700}
 .kanban-card .pic-text{color:var(--text-secondary);font-size:11px;margin-top:6px}
-.sortable-ghost{opacity:0.4}.sortable-drag{box-shadow:var(--shadow-lg)}
+.sortable-ghost{opacity:.4}.sortable-drag{box-shadow:var(--shadow-lg)}
+
+/* TABLE */
 .task-table-wrap{overflow-x:auto}
 .task-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
-.task-table thead th{padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid var(--border);white-space:nowrap}
-.task-table tbody tr{transition:background var(--transition)}.task-table tbody tr:hover{background:var(--bg)}
+.task-table thead th{padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border);white-space:nowrap}
+.task-table tbody tr{transition:background var(--tr)}.task-table tbody tr:hover{background:var(--bg)}
 .task-table tbody td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
 .status-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
 .status-badge.todo{background:#f1f5f9;color:#64748b}.status-badge.progress{background:#dbeafe;color:#2563eb}.status-badge.review{background:#fef3c7;color:#d97706}.status-badge.done{background:#dcfce7;color:#16a34a}
 [data-theme="dark"] .status-badge.todo{background:#1e293b}[data-theme="dark"] .status-badge.progress{background:#1e3a5f}[data-theme="dark"] .status-badge.review{background:#422006}[data-theme="dark"] .status-badge.done{background:#052e16}
 .action-btns{display:flex;gap:6px}
-.action-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all var(--transition)}
+.action-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all var(--tr)}
 .action-btn:hover{background:var(--bg);color:var(--text)}.action-btn.delete:hover{background:#fee2e2;color:#dc2626;border-color:#fecaca}
 .action-btn svg{width:14px;height:14px}
+
+/* NOTULENSI LIST */
 .notulensi-list{display:grid;gap:12px}
 .notulensi-card{padding:20px;cursor:pointer}.notulensi-card:hover{box-shadow:var(--shadow-lg)}
 .notulensi-card h4{font-size:15px;font-weight:700;margin-bottom:6px}
 .notulensi-card .meta{font-size:12px;color:var(--text-secondary);display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
 .notulensi-card .kesimpulan{font-size:12px;color:var(--text-secondary);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .notulensi-card .card-actions{display:flex;gap:8px;margin-top:12px}
+
+/* EXPORT */
 .export-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .export-card{padding:28px;text-align:center}
 .export-card .icon{width:56px;height:56px;border-radius:14px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
 .export-card h4{font-size:15px;font-weight:700;margin-bottom:6px}
 .export-card p{font-size:12px;color:var(--text-secondary);margin-bottom:16px}
+
+/* MULTI-SELECT */
 .multi-select-wrap{position:relative}
-.multi-select-trigger{width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px;min-height:42px;align-items:center;transition:border-color var(--transition)}
-.multi-select-trigger:focus-within{border-color:#6366f1}
+.multi-select-trigger{width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px;min-height:42px;align-items:center}
 .multi-select-trigger .placeholder{color:var(--text-secondary)}
 .multi-select-trigger .selected-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff}
-.multi-select-trigger .selected-tag .remove-tag{cursor:pointer;font-size:14px;line-height:1;opacity:0.8}
+.multi-select-trigger .selected-tag .remove-tag{cursor:pointer;font-size:14px;line-height:1;opacity:.8}
 .multi-select-trigger .selected-tag .remove-tag:hover{opacity:1}
 .multi-select-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);z-index:50;max-height:250px;overflow-y:auto;display:none}
 .multi-select-dropdown.open{display:block}
-.multi-select-option{display:flex;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;font-size:13px;transition:background var(--transition)}
+.multi-select-option{display:flex;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;font-size:13px;transition:background var(--tr)}
 .multi-select-option:hover{background:var(--bg)}
 .multi-select-option input[type="checkbox"]{accent-color:#6366f1}
 .multi-select-option .dept-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* BULK */
 .bulk-task-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:6px;font-size:13px}
 .bulk-task-item input[type="checkbox"]{accent-color:#6366f1;flex-shrink:0}
 .bulk-task-item .task-info{flex:1}
@@ -128,33 +150,65 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .bulk-task-item .task-info .t-meta{font-size:11px;color:var(--text-secondary);margin-top:2px}
 .import-guide{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-top:16px;font-size:13px;line-height:1.7}
 .import-guide h4{font-size:13px;font-weight:700;margin-bottom:8px}
-.import-guide ol{padding-left:20px}
-.import-guide li{margin-bottom:4px}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;backdrop-filter:blur(4px)}
+.import-guide ol{padding-left:20px}.import-guide li{margin-bottom:4px}
+
+/* NOTULENSI EDITOR (FULL PAGE) */
+.editor-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.editor-row.full{grid-template-columns:1fr}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text-secondary)}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;transition:border-color var(--tr)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#6366f1}
+.form-group textarea{resize:vertical;min-height:80px}
+.topic-card{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;position:relative;transition:border-color var(--tr)}
+.topic-card:hover{border-color:#c7c9d9}
+.topic-card:focus-within{border-color:#6366f1}
+.topic-card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.topic-card-header .topic-number{background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.topic-card-header input{flex:1;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-family:inherit;font-size:14px;font-weight:600}
+.topic-card-header input:focus{outline:none;border-color:#6366f1}
+.topic-card-header .btn-remove-topic{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all var(--tr);flex-shrink:0}
+.topic-card-header .btn-remove-topic:hover{background:#fee2e2;color:#dc2626;border-color:#fecaca}
+.langkah-list{margin-left:40px;margin-bottom:10px}
+.langkah-item{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.langkah-item .langkah-num{color:var(--text-secondary);font-size:12px;font-weight:700;min-width:20px}
+.langkah-item input{flex:1;padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-family:inherit;font-size:13px}
+.langkah-item input:focus{outline:none;border-color:#6366f1}
+.langkah-item .btn-remove-langkah{width:28px;height:28px;border-radius:6px;border:1px solid transparent;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all var(--tr);flex-shrink:0}
+.langkah-item .btn-remove-langkah:hover{background:#fee2e2;color:#dc2626}
+.btn-add-langkah{margin-left:40px;padding:6px 14px;border-radius:var(--radius-sm);border:1px dashed var(--border);background:transparent;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-secondary);transition:all var(--tr)}
+.btn-add-langkah:hover{border-color:#6366f1;color:#6366f1;background:rgba(99,102,241,.05)}
+.btn-add-topic{width:100%;padding:14px;border-radius:var(--radius);border:2px dashed var(--border);background:transparent;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:var(--text-secondary);transition:all var(--tr);margin-bottom:24px}
+.btn-add-topic:hover{border-color:#6366f1;color:#6366f1;background:rgba(99,102,241,.05)}
+.editor-footer{display:flex;justify-content:flex-end;gap:10px;padding-top:16px;border-top:1px solid var(--border)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;backdrop-filter:blur(4px)}
 .modal-overlay.active{display:flex}
 .modal{background:var(--bg-card);border-radius:var(--radius);width:100%;max-width:600px;max-height:85vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
 .modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
 .modal-header h3{font-size:17px;font-weight:700}
-.modal-close{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all var(--transition)}
+.modal-close{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all var(--tr)}
 .modal-close:hover{background:#fee2e2;color:#dc2626}
 .modal-body{padding:24px}
 .modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:16px 24px;border-top:1px solid var(--border)}
-.form-group{margin-bottom:16px}
-.form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text-secondary)}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;transition:border-color var(--transition)}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#6366f1}
-.form-group textarea{resize:vertical;min-height:80px}
 .detail-section{margin-bottom:20px}
-.detail-section h4{font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.detail-section h4{font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
 .detail-section p,.detail-section ul{font-size:14px;line-height:1.6}
 .detail-section ul{padding-left:20px}.detail-section ul li{margin-bottom:4px}
+.detail-topic{background:var(--bg);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px}
+.detail-topic h5{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.detail-topic ul{padding-left:18px;margin:0}
+.detail-topic li{font-size:13px;margin-bottom:3px}
 .sync-item{display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:8px}
 .sync-item input[type="checkbox"]{margin-top:3px;accent-color:#6366f1}
 .sync-item .sync-text{font-size:13px;flex:1}
+.sync-item .sync-topic-label{font-size:10px;color:#6366f1;font-weight:700;text-transform:uppercase;margin-bottom:4px}
 .sync-item .sync-fields{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .sync-item .sync-fields input,.sync-item .sync-fields select{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-family:inherit;font-size:12px}
+
 .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;width:40px;height:40px;border-radius:10px;background:var(--bg-sidebar);border:none;cursor:pointer;align-items:center;justify-content:center;color:#fff}
-@media(max-width:1024px){.summary-grid{grid-template-columns:repeat(2,1fr)}.kanban-board{grid-template-columns:repeat(2,1fr)}.export-grid{grid-template-columns:1fr}}
+@media(max-width:1024px){.summary-grid{grid-template-columns:repeat(2,1fr)}.kanban-board{grid-template-columns:repeat(2,1fr)}.export-grid{grid-template-columns:1fr}.editor-row{grid-template-columns:1fr}}
 @media(max-width:768px){.hamburger{display:flex}.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;padding:68px 16px 16px}.summary-grid{grid-template-columns:1fr 1fr}.kanban-board{grid-template-columns:1fr}.calendar-cell{min-height:60px;padding:4px}.page-header{flex-direction:column;align-items:flex-start;gap:12px}}
 </style>
 </head>
@@ -174,34 +228,64 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div class="nav-item" onclick="switchTab('notulensi')" data-tab="notulensi"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Notulensi Meeting</div>
     <div class="nav-item" onclick="switchTab('export')" data-tab="export"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Export & Sync</div>
   </div>
+  <div class="nav-item" id="navEditor" onclick="switchTab('noteditor')" data-tab="noteditor" style="display:none"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editor Notulensi</div>
   <div class="theme-toggle" onclick="toggleTheme()"><svg id="themeIcon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span id="themeLabel">Dark Mode</span></div>
 </aside>
+
 <main class="main">
+  <!-- OVERVIEW -->
   <div class="tab-page active" id="page-overview">
     <div class="page-header"><div><h2>Dashboard Overview</h2><div class="subtitle">Ringkasan seluruh task dan aktivitas project</div></div><div class="header-actions"><button class="btn btn-primary" onclick="openTaskModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Tambah Task</button></div></div>
     <div class="summary-grid" id="summaryGrid"></div>
     <div class="notifications" id="notificationsArea"></div>
     <div class="card" style="padding:20px"><h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Task per Departemen</h3><div id="deptChart"></div></div>
   </div>
+  <!-- CALENDAR -->
   <div class="tab-page" id="page-calendar">
-    <div class="page-header"><div><h2>Kalender</h2><div class="subtitle">Visualisasi deadline task dalam format kalender</div></div><div class="header-actions"><button class="btn btn-primary" onclick="openTaskModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Tambah Task</button></div></div>
+    <div class="page-header"><div><h2>Kalender</h2><div class="subtitle">Visualisasi deadline task</div></div><div class="header-actions"><button class="btn btn-primary" onclick="openTaskModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Tambah Task</button></div></div>
     <div class="card" style="padding:20px"><div class="calendar-nav"><button onclick="changeMonth(-1)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></button><h3 id="calendarTitle"></h3><button onclick="changeMonth(1)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button><button class="btn btn-secondary btn-sm" onclick="goToday()" style="margin-left:8px">Hari Ini</button></div><div class="calendar-grid" id="calendarGrid"></div></div>
   </div>
+  <!-- KANBAN -->
   <div class="tab-page" id="page-kanban">
     <div class="page-header"><div><h2>Kanban Board</h2><div class="subtitle">Drag & drop task antar status</div></div><div class="header-actions"><button class="btn btn-primary" onclick="openTaskModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Tambah Task</button></div></div>
     <div class="kanban-filters"><select id="kanbanDeptFilter" onchange="renderKanban()"><option value="">Semua Departemen</option></select><input type="text" id="kanbanSearch" placeholder="Cari task..." oninput="renderKanban()"></div>
     <div class="kanban-board" id="kanbanBoard"></div>
   </div>
+  <!-- TASK LIST -->
   <div class="tab-page" id="page-tasklist">
     <div class="page-header"><div><h2>Task List</h2><div class="subtitle">Daftar lengkap seluruh task</div></div><div class="header-actions"><button class="btn btn-primary" onclick="openTaskModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Tambah Task</button></div></div>
     <div class="kanban-filters" style="margin-bottom:16px"><select id="taskDeptFilter" onchange="renderTaskList()"><option value="">Semua Departemen</option></select><select id="taskStatusFilter" onchange="renderTaskList()"><option value="">Semua Status</option><option value="todo">Belum Mulai</option><option value="progress">Dalam Proses</option><option value="review">Review</option><option value="done">Selesai</option></select><input type="text" id="taskSearch" placeholder="Cari task..." oninput="renderTaskList()"></div>
     <div class="card"><div class="task-table-wrap"><table class="task-table"><thead><tr><th>Nama Project</th><th>Deskripsi</th><th>PIC</th><th>Departemen</th><th>Deadline</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="taskTableBody"></tbody></table></div></div>
   </div>
+  <!-- NOTULENSI LIST -->
   <div class="tab-page" id="page-notulensi">
-    <div class="page-header"><div><h2>Notulensi Meeting</h2><div class="subtitle">Kelola catatan meeting dan sync ke task</div></div><div class="header-actions"><button class="btn btn-primary" onclick="openNotulensiModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Buat Notulensi</button></div></div>
+    <div class="page-header"><div><h2>Notulensi Meeting</h2><div class="subtitle">Kelola catatan meeting dan sync ke task</div></div><div class="header-actions"><button class="btn btn-primary" onclick="openNotEditor()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Buat Notulensi</button></div></div>
     <div class="kanban-filters" style="margin-bottom:16px"><input type="text" id="notulensiSearch" placeholder="Cari notulensi..." oninput="renderNotulensi()" style="min-width:250px"></div>
     <div class="notulensi-list" id="notulensiList"></div>
   </div>
+  <!-- NOTULENSI EDITOR (FULL PAGE) -->
+  <div class="tab-page" id="page-noteditor">
+    <div class="page-header"><div><h2 id="editorTitle">Buat Notulensi Baru</h2><div class="subtitle">Isi data meeting dan topik pembahasan</div></div><div class="header-actions"><button class="btn btn-secondary" onclick="cancelEditor()">← Kembali ke List</button></div></div>
+    <input type="hidden" id="editorNotId">
+    <div class="card" style="padding:24px;margin-bottom:20px">
+      <div class="editor-row">
+        <div class="form-group" style="margin-bottom:0"><label>Judul Meeting *</label><input type="text" id="edJudul" placeholder="Judul rapat..."></div>
+        <div class="form-group" style="margin-bottom:0"><label>Tanggal *</label><input type="date" id="edTanggal"></div>
+      </div>
+      <div class="form-group"><label>Peserta Meeting</label><textarea id="edPeserta" placeholder="Nama 1, Nama 2, Nama 3..." style="min-height:60px"></textarea></div>
+    </div>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:14px">Topik Bahasan & Langkah</h3>
+    <div id="topicsContainer"></div>
+    <button class="btn-add-topic" onclick="addTopicCard()">+ Tambah Topik Bahasan</button>
+    <div class="card" style="padding:24px">
+      <div class="form-group" style="margin-bottom:0"><label>Kesimpulan / Summary</label><textarea id="edKesimpulan" placeholder="Kesimpulan hasil rapat..." style="min-height:120px"></textarea></div>
+    </div>
+    <div class="editor-footer">
+      <button class="btn btn-secondary" onclick="cancelEditor()">Batal</button>
+      <button class="btn btn-primary" onclick="saveNotEditor()">Simpan Notulensi</button>
+    </div>
+  </div>
+  <!-- EXPORT -->
   <div class="tab-page" id="page-export">
     <div class="page-header"><div><h2>Export & Sync</h2><div class="subtitle">Export notulensi dan sync task ke Google Calendar</div></div></div>
     <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Export Notulensi</h3>
@@ -212,20 +296,20 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     </div>
     <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Google Calendar Sync</h3>
     <div class="card" style="padding:20px;margin-bottom:20px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px"><div><h4 style="font-size:14px;font-weight:700">Bulk Sync — Semua Task Aktif</h4><p style="font-size:12px;color:var(--text-secondary);margin-top:2px">Pilih beberapa task sekaligus dan download satu file .ics</p></div><div style="display:flex;gap:8px"><button class="btn btn-sm btn-secondary" onclick="bulkSelectAll()">Pilih Semua</button><button class="btn btn-sm btn-secondary" onclick="bulkDeselectAll()">Hapus Pilihan</button></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px"><div><h4 style="font-size:14px;font-weight:700">Bulk Sync — Semua Task Aktif</h4><p style="font-size:12px;color:var(--text-secondary);margin-top:2px">Pilih beberapa task dan download satu file .ics</p></div><div style="display:flex;gap:8px"><button class="btn btn-sm btn-secondary" onclick="bulkSelectAll()">Pilih Semua</button><button class="btn btn-sm btn-secondary" onclick="bulkDeselectAll()">Hapus Pilihan</button></div></div>
       <div class="kanban-filters" style="margin-bottom:12px"><select id="bulkDeptFilter" onchange="renderBulkList()"><option value="">Semua Departemen</option></select></div>
       <div id="bulkTaskList" style="max-height:300px;overflow-y:auto"></div>
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="downloadBulkICS()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download Bulk .ics</button>
-        <button class="btn btn-success" onclick="openBulkGoogleCalendar()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>Buka di Google Calendar</button>
+        <button class="btn btn-primary" onclick="downloadBulkICS()">Download Bulk .ics</button>
+        <button class="btn btn-success" onclick="openBulkGCal()">Buka di Google Calendar</button>
       </div>
-      <div class="import-guide"><h4>📋 Cara Import .ics ke Google Calendar</h4><ol><li>Download file .ics dari tombol di atas</li><li>Buka <strong>Google Calendar</strong> di browser</li><li>Klik ikon <strong>⚙️ Settings</strong> (gear) di kanan atas</li><li>Pilih <strong>Import & Export</strong> dari menu kiri</li><li>Klik <strong>"Select file from your computer"</strong></li><li>Pilih file .ics yang sudah di-download</li><li>Pilih kalender tujuan, lalu klik <strong>"Import"</strong></li><li>Semua task akan muncul di Google Calendar!</li></ol></div>
+      <div class="import-guide"><h4>📋 Cara Import .ics ke Google Calendar</h4><ol><li>Download file .ics dari tombol di atas</li><li>Buka <strong>Google Calendar</strong> di browser</li><li>Klik ikon <strong>⚙️ Settings</strong> di kanan atas</li><li>Pilih <strong>Import & Export</strong></li><li>Klik <strong>"Select file from your computer"</strong></li><li>Pilih file .ics, lalu klik <strong>"Import"</strong></li></ol></div>
     </div>
     <h4 style="font-size:14px;font-weight:700;margin-bottom:12px">Sync Task Satuan</h4>
     <div class="form-group" style="max-width:400px;margin-bottom:20px"><label>Pilih Task</label><select id="gcalTaskSelect"></select></div>
     <div class="export-grid">
-      <div class="card export-card"><div class="icon" style="background:#dcfce7"><svg width="28" height="28" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h4>Download .ics</h4><p>Download file kalender untuk import manual</p><button class="btn btn-primary" onclick="downloadICS()">Download .ics</button></div>
-      <div class="card export-card"><div class="icon" style="background:#fef3c7"><svg width="28" height="28" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></div><h4>Buka di Google Calendar</h4><p>Langsung buka dengan event pre-filled</p><button class="btn btn-primary" onclick="openGoogleCalendar()">Buka Google Calendar</button></div>
+      <div class="card export-card"><div class="icon" style="background:#dcfce7"><svg width="28" height="28" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h4>Download .ics</h4><p>Download file kalender untuk import</p><button class="btn btn-primary" onclick="downloadICS()">Download .ics</button></div>
+      <div class="card export-card"><div class="icon" style="background:#fef3c7"><svg width="28" height="28" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></div><h4>Buka di Google Calendar</h4><p>Event pre-filled langsung</p><button class="btn btn-primary" onclick="openSingleGCal()">Buka Google Calendar</button></div>
     </div>
   </div>
 </main>
@@ -236,45 +320,60 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   <div class="form-group"><label>Nama Project</label><input type="text" id="taskName" placeholder="Masukkan nama project..."></div>
   <div class="form-group"><label>Deskripsi Task</label><textarea id="taskDesc" placeholder="Deskripsi task..."></textarea></div>
   <div class="form-group"><label>PIC (Penanggung Jawab)</label><input type="text" id="taskPIC" placeholder="Nama penanggung jawab..."></div>
-  <div class="form-group"><label>Departemen (bisa pilih lebih dari 1)</label><div class="multi-select-wrap" id="taskDeptWrap"><div class="multi-select-trigger" id="taskDeptTrigger" onclick="toggleMultiSelect('taskDeptWrap')"><span class="placeholder">Pilih departemen...</span></div><div class="multi-select-dropdown" id="taskDeptDropdown"></div></div></div>
+  <div class="form-group"><label>Departemen (bisa pilih lebih dari 1)</label><div class="multi-select-wrap" id="taskDeptWrap"><div class="multi-select-trigger" id="taskDeptTrigger" onclick="toggleMS('taskDeptWrap')"><span class="placeholder">Pilih departemen...</span></div><div class="multi-select-dropdown" id="taskDeptDropdown"></div></div></div>
   <div class="form-group"><label>Deadline</label><input type="date" id="taskDeadline"></div>
   <div class="form-group"><label>Status</label><select id="taskStatus"><option value="todo">Belum Mulai</option><option value="progress">Dalam Proses</option><option value="review">Review</option><option value="done">Selesai</option></select></div>
 </div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('taskModal')">Batal</button><button class="btn btn-primary" onclick="saveTask()">Simpan Task</button></div></div></div>
 
-<!-- NOTULENSI MODAL -->
-<div class="modal-overlay" id="notulensiModal"><div class="modal" style="max-width:700px"><div class="modal-header"><h3 id="notulensiModalTitle">Buat Notulensi Baru</h3><button class="modal-close" onclick="closeModal('notulensiModal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="modal-body">
-  <input type="hidden" id="notulensiId">
-  <div class="form-group"><label>Judul Meeting</label><input type="text" id="notJudul" placeholder="Judul meeting..."></div>
-  <div class="form-group"><label>Tanggal Meeting</label><input type="date" id="notTanggal"></div>
-  <div class="form-group"><label>Peserta Meeting (pisahkan dengan koma)</label><textarea id="notPeserta" placeholder="Nama 1, Nama 2, Nama 3..." style="min-height:60px"></textarea></div>
-  <div class="form-group"><label>Topik Bahasan (satu per baris)</label><textarea id="notTopik" placeholder="Topik 1&#10;Topik 2&#10;Topik 3..."></textarea></div>
-  <div class="form-group"><label>Langkah yang Ditempuh (satu per baris)</label><textarea id="notLangkah" placeholder="Langkah 1&#10;Langkah 2&#10;Langkah 3..." style="min-height:100px"></textarea></div>
-  <div class="form-group"><label>Kesimpulan (Summary)</label><textarea id="notKesimpulan" placeholder="Kesimpulan dari meeting..."></textarea></div>
-</div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('notulensiModal')">Batal</button><button class="btn btn-primary" onclick="saveNotulensi()">Simpan Notulensi</button></div></div></div>
-
 <!-- DETAIL NOTULENSI -->
-<div class="modal-overlay" id="detailNotulensiModal"><div class="modal" style="max-width:700px"><div class="modal-header"><h3 id="detailNotTitle">Detail Notulensi</h3><button class="modal-close" onclick="closeModal('detailNotulensiModal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="modal-body" id="detailNotBody"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('detailNotulensiModal')">Tutup</button><button class="btn btn-primary" onclick="openSyncModal()">Sync to Tasks</button></div></div></div>
+<div class="modal-overlay" id="detailModal"><div class="modal" style="max-width:700px"><div class="modal-header"><h3 id="detailNotTitle">Detail Notulensi</h3><button class="modal-close" onclick="closeModal('detailModal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="modal-body" id="detailNotBody"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('detailModal')">Tutup</button><button class="btn btn-primary" onclick="openSyncModal()">Sync to Tasks</button></div></div></div>
 
 <!-- SYNC MODAL -->
-<div class="modal-overlay" id="syncModal"><div class="modal" style="max-width:700px"><div class="modal-header"><h3>Sync Langkah ke Tasks</h3><button class="modal-close" onclick="closeModal('syncModal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="modal-body" id="syncBody"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('syncModal')">Batal</button><button class="btn btn-primary" onclick="executeSyncTasks()">Buat Tasks</button></div></div></div>
+<div class="modal-overlay" id="syncModal"><div class="modal" style="max-width:700px"><div class="modal-header"><h3>Sync Langkah ke Tasks</h3><button class="modal-close" onclick="closeModal('syncModal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="modal-body" id="syncBody"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('syncModal')">Batal</button><button class="btn btn-primary" onclick="execSync()">Buat Tasks</button></div></div></div>
 
 <!-- CONFIRM -->
 <div class="modal-overlay" id="confirmModal"><div class="modal" style="max-width:400px"><div class="modal-header"><h3>Konfirmasi</h3><button class="modal-close" onclick="closeModal('confirmModal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="modal-body"><p id="confirmMessage" style="font-size:14px;line-height:1.6"></p></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('confirmModal')">Batal</button><button class="btn btn-danger" id="confirmBtn">Ya, Hapus</button></div></div></div>
 
 <script>
-const DEPARTMENTS=[{id:'project-leader',name:'Project Leader',color:'#3b82f6'},{id:'operasional',name:'Operasional',color:'#22c55e'},{id:'marketing',name:'Marketing',color:'#f97316'},{id:'qhse',name:'QHSE',color:'#ef4444'},{id:'design',name:'Design & Creative',color:'#a855f7'},{id:'finance',name:'Finance',color:'#eab308'},{id:'warehouse',name:'Warehouse',color:'#92400e'},{id:'procurement',name:'Procurement & Purchasing',color:'#14b8a6'},{id:'franchise',name:'Franchise Dept',color:'#ec4899'},{id:'hrga',name:'HRGA',color:'#84cc16'},{id:'legal',name:'Legal',color:'#64748b'},{id:'it',name:'IT',color:'#6366f1'},{id:'crm',name:'CRM Support',color:'#06b6d4'}];
-const STATUSES=[{id:'todo',name:'Belum Mulai',color:'#94a3b8'},{id:'progress',name:'Dalam Proses',color:'#3b82f6'},{id:'review',name:'Review',color:'#f59e0b'},{id:'done',name:'Selesai',color:'#22c55e'}];
-const getDeptColor=id=>{const d=DEPARTMENTS.find(x=>x.id===id);return d?d.color:'#6b7085'};
-const getDeptName=id=>{const d=DEPARTMENTS.find(x=>x.id===id);return d?d.name:id};
-const getStatusName=id=>{const s=STATUSES.find(x=>x.id===id);return s?s.name:id};
-function getTaskDepts(t){if(t.departments&&Array.isArray(t.departments))return t.departments;if(t.department)return Array.isArray(t.department)?t.department:[t.department];return[]}
-function renderDeptBadges(depts){if(!Array.isArray(depts))depts=[depts];return depts.map(d=>`<span class="dept-badge" style="background:${getDeptColor(d)}">${getDeptName(d)}</span>`).join('')}
-function taskMatchesDept(t,f){if(!f)return true;return getTaskDepts(t).includes(f)}
-function loadData(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}
-function saveData(k,d){localStorage.setItem(k,JSON.stringify(d))}
-let tasks=loadData('pd_tasks',[]),notulensiList=loadData('pd_notulensi',[]),currentMonth=new Date().getMonth(),currentYear=new Date().getFullYear(),currentDetailNotulensiId=null,taskDeptSelection=[];
-const generateId=()=>Date.now().toString(36)+Math.random().toString(36).substr(2,5);
-const escHtml=s=>s?(s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):'';
+// ===== CONFIG =====
+const DEPTS=[{id:'project-leader',name:'Project Leader',color:'#3b82f6'},{id:'operasional',name:'Operasional',color:'#22c55e'},{id:'marketing',name:'Marketing',color:'#f97316'},{id:'qhse',name:'QHSE',color:'#ef4444'},{id:'design',name:'Design & Creative',color:'#a855f7'},{id:'finance',name:'Finance',color:'#eab308'},{id:'warehouse',name:'Warehouse',color:'#92400e'},{id:'procurement',name:'Procurement & Purchasing',color:'#14b8a6'},{id:'franchise',name:'Franchise Dept',color:'#ec4899'},{id:'hrga',name:'HRGA',color:'#84cc16'},{id:'legal',name:'Legal',color:'#64748b'},{id:'it',name:'IT',color:'#6366f1'},{id:'crm',name:'CRM Support',color:'#06b6d4'}];
+const STATS=[{id:'todo',name:'Belum Mulai',color:'#94a3b8'},{id:'progress',name:'Dalam Proses',color:'#3b82f6'},{id:'review',name:'Review',color:'#f59e0b'},{id:'done',name:'Selesai',color:'#22c55e'}];
+const dc=id=>{const d=DEPTS.find(x=>x.id===id);return d?d.color:'#6b7085'};
+const dn=id=>{const d=DEPTS.find(x=>x.id===id);return d?d.name:id};
+const sn=id=>{const s=STATS.find(x=>x.id===id);return s?s.name:id};
+function gd(t){if(t.departments&&Array.isArray(t.departments))return t.departments;if(t.department)return Array.isArray(t.department)?t.department:[t.department];return[]}
+function rdb(ds){if(!Array.isArray(ds))ds=[ds];return ds.map(d=>`<span class="dept-badge" style="background:${dc(d)}">${dn(d)}</span>`).join('')}
+function tmd(t,f){if(!f)return true;return gd(t).includes(f)}
+function ld(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}
+function sd(k,d){localStorage.setItem(k,JSON.stringify(d))}
+let tasks=ld('pd_tasks',[]),nots=ld('pd_notulensi',[]),curMonth=new Date().getMonth(),curYear=new Date().getFullYear(),curDetailId=null,tds=[];
+const gid=()=>Date.now().toString(36)+Math.random().toString(36).substr(2,5);
+const esc=s=>s?(s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):'';
+
+// Normalize notulensi topics (backward compat)
+function getTopics(n){
+  if(n.topics&&Array.isArray(n.topics))return n.topics;
+  // Old format: topik=string, langkah=string → convert
+  const topics=[];
+  if(n.topik){
+    const topikLines=n.topik.split('\n').filter(x=>x.trim());
+    const langkahLines=n.langkah?n.langkah.split('\n').filter(x=>x.trim()):[];
+    if(topikLines.length>0){
+      topikLines.forEach(t=>{topics.push({topik:t.trim(),langkah:[]})});
+      // Put all langkah under first topic if old format
+      if(topics.length>0&&langkahLines.length>0)topics[0].langkah=langkahLines.map(l=>l.trim());
+    }else if(langkahLines.length>0){
+      topics.push({topik:'Pembahasan Umum',langkah:langkahLines.map(l=>l.trim())});
+    }
+  }
+  return topics;
+}
+function getAllLangkah(n){
+  const topics=getTopics(n);
+  const result=[];
+  topics.forEach(t=>{t.langkah.forEach(l=>{result.push({topik:t.topik,langkah:l})})});
+  return result;
+}
 
 // THEME
 function toggleTheme(){const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('pd_theme',d?'light':'dark');updateThemeUI()}
@@ -284,83 +383,160 @@ updateThemeUI();
 
 // SIDEBAR
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-function switchTab(t){document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('page-'+t).classList.add('active');document.querySelector(`.nav-item[data-tab="${t}"]`).classList.add('active');document.getElementById('sidebar').classList.remove('open');refreshAll()}
+function switchTab(t){document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('page-'+t).classList.add('active');const ni=document.querySelector(`.nav-item[data-tab="${t}"]`);if(ni)ni.classList.add('active');document.getElementById('sidebar').classList.remove('open');if(t!=='noteditor')document.getElementById('navEditor').style.display='none';refreshAll()}
 function openModal(id){document.getElementById(id).classList.add('active')}
 function closeModal(id){document.getElementById(id).classList.remove('active')}
 document.addEventListener('click',e=>{document.querySelectorAll('.multi-select-dropdown.open').forEach(dd=>{if(!dd.parentElement.contains(e.target))dd.classList.remove('open')})});
 
 // MULTI-SELECT
-function buildMultiSelectDropdown(cid){const dd=document.getElementById(cid).querySelector('.multi-select-dropdown');dd.innerHTML=DEPARTMENTS.map(d=>`<div class="multi-select-option" onclick="event.stopPropagation();toggleDeptOption('${cid}','${d.id}')"><input type="checkbox" id="ms_${cid}_${d.id}" ${taskDeptSelection.includes(d.id)?'checked':''}><div class="dept-dot" style="background:${d.color}"></div><span>${d.name}</span></div>`).join('')}
-function toggleMultiSelect(cid){document.getElementById(cid).querySelector('.multi-select-dropdown').classList.toggle('open')}
-function toggleDeptOption(cid,did){const i=taskDeptSelection.indexOf(did);if(i>=0)taskDeptSelection.splice(i,1);else taskDeptSelection.push(did);updateMultiSelectUI(cid)}
-function updateMultiSelectUI(cid){const tr=document.getElementById(cid).querySelector('.multi-select-trigger');if(taskDeptSelection.length===0){tr.innerHTML='<span class="placeholder">Pilih departemen...</span>'}else{tr.innerHTML=taskDeptSelection.map(id=>`<span class="selected-tag" style="background:${getDeptColor(id)}">${getDeptName(id)} <span class="remove-tag" onclick="event.stopPropagation();toggleDeptOption('${cid}','${id}')">&times;</span></span>`).join('')}DEPARTMENTS.forEach(d=>{const cb=document.getElementById(`ms_${cid}_${d.id}`);if(cb)cb.checked=taskDeptSelection.includes(d.id)})}
-
-// FILTER DROPDOWNS
-function populateDeptDropdowns(){['kanbanDeptFilter','taskDeptFilter','bulkDeptFilter'].forEach(id=>{const s=document.getElementById(id);if(!s)return;let h='<option value="">Semua Departemen</option>';DEPARTMENTS.forEach(d=>{h+=`<option value="${d.id}">${d.name}</option>`});s.innerHTML=h});buildMultiSelectDropdown('taskDeptWrap')}
+function buildMS(cid){const dd=document.getElementById(cid).querySelector('.multi-select-dropdown');dd.innerHTML=DEPTS.map(d=>`<div class="multi-select-option" onclick="event.stopPropagation();togDept('${cid}','${d.id}')"><input type="checkbox" id="ms_${cid}_${d.id}" ${tds.includes(d.id)?'checked':''}><div class="dept-dot" style="background:${d.color}"></div><span>${d.name}</span></div>`).join('')}
+function toggleMS(cid){document.getElementById(cid).querySelector('.multi-select-dropdown').classList.toggle('open')}
+function togDept(cid,did){const i=tds.indexOf(did);if(i>=0)tds.splice(i,1);else tds.push(did);updateMSUI(cid)}
+function updateMSUI(cid){const tr=document.getElementById(cid).querySelector('.multi-select-trigger');if(tds.length===0)tr.innerHTML='<span class="placeholder">Pilih departemen...</span>';else tr.innerHTML=tds.map(id=>`<span class="selected-tag" style="background:${dc(id)}">${dn(id)} <span class="remove-tag" onclick="event.stopPropagation();togDept('${cid}','${id}')">&times;</span></span>`).join('');DEPTS.forEach(d=>{const cb=document.getElementById(`ms_${cid}_${d.id}`);if(cb)cb.checked=tds.includes(d.id)})}
+function popDeptDD(){['kanbanDeptFilter','taskDeptFilter','bulkDeptFilter'].forEach(id=>{const s=document.getElementById(id);if(!s)return;let h='<option value="">Semua Departemen</option>';DEPTS.forEach(d=>{h+=`<option value="${d.id}">${d.name}</option>`});s.innerHTML=h});buildMS('taskDeptWrap')}
 
 // TASK CRUD
-function openTaskModal(tid){document.getElementById('taskModalTitle').textContent=tid?'Edit Task':'Tambah Task Baru';if(tid){const t=tasks.find(x=>x.id===tid);if(!t)return;document.getElementById('taskId').value=t.id;document.getElementById('taskName').value=t.name;document.getElementById('taskDesc').value=t.description||'';document.getElementById('taskPIC').value=t.pic||'';taskDeptSelection=[...getTaskDepts(t)];document.getElementById('taskDeadline').value=t.deadline;document.getElementById('taskStatus').value=t.status}else{document.getElementById('taskId').value='';document.getElementById('taskName').value='';document.getElementById('taskDesc').value='';document.getElementById('taskPIC').value='';taskDeptSelection=[];document.getElementById('taskDeadline').value='';document.getElementById('taskStatus').value='todo'}buildMultiSelectDropdown('taskDeptWrap');updateMultiSelectUI('taskDeptWrap');openModal('taskModal')}
-function saveTask(){const id=document.getElementById('taskId').value;const data={name:document.getElementById('taskName').value.trim(),description:document.getElementById('taskDesc').value.trim(),pic:document.getElementById('taskPIC').value.trim(),departments:[...taskDeptSelection],deadline:document.getElementById('taskDeadline').value,status:document.getElementById('taskStatus').value};if(!data.name||!data.deadline||data.departments.length===0){alert('Nama Project, minimal 1 Departemen, dan Deadline wajib diisi!');return}if(id){const i=tasks.findIndex(x=>x.id===id);if(i>=0){tasks[i]={...tasks[i],...data};delete tasks[i].department}}else{tasks.push({id:generateId(),...data,createdAt:new Date().toISOString()})}saveData('pd_tasks',tasks);closeModal('taskModal');refreshAll()}
-function confirmDeleteTask(tid){const t=tasks.find(x=>x.id===tid);if(!t)return;document.getElementById('confirmMessage').textContent=`Apakah kamu yakin ingin menghapus task "${t.name}"? Aksi ini tidak bisa dibatalkan.`;document.getElementById('confirmBtn').onclick=()=>{tasks=tasks.filter(x=>x.id!==tid);saveData('pd_tasks',tasks);closeModal('confirmModal');refreshAll()};openModal('confirmModal')}
+function openTaskModal(tid){document.getElementById('taskModalTitle').textContent=tid?'Edit Task':'Tambah Task Baru';if(tid){const t=tasks.find(x=>x.id===tid);if(!t)return;document.getElementById('taskId').value=t.id;document.getElementById('taskName').value=t.name;document.getElementById('taskDesc').value=t.description||'';document.getElementById('taskPIC').value=t.pic||'';tds=[...gd(t)];document.getElementById('taskDeadline').value=t.deadline;document.getElementById('taskStatus').value=t.status}else{document.getElementById('taskId').value='';document.getElementById('taskName').value='';document.getElementById('taskDesc').value='';document.getElementById('taskPIC').value='';tds=[];document.getElementById('taskDeadline').value='';document.getElementById('taskStatus').value='todo'}buildMS('taskDeptWrap');updateMSUI('taskDeptWrap');openModal('taskModal')}
+function saveTask(){const id=document.getElementById('taskId').value;const data={name:document.getElementById('taskName').value.trim(),description:document.getElementById('taskDesc').value.trim(),pic:document.getElementById('taskPIC').value.trim(),departments:[...tds],deadline:document.getElementById('taskDeadline').value,status:document.getElementById('taskStatus').value};if(!data.name||!data.deadline||data.departments.length===0){alert('Nama Project, minimal 1 Departemen, dan Deadline wajib diisi!');return}if(id){const i=tasks.findIndex(x=>x.id===id);if(i>=0){tasks[i]={...tasks[i],...data};delete tasks[i].department}}else tasks.push({id:gid(),...data,createdAt:new Date().toISOString()});sd('pd_tasks',tasks);closeModal('taskModal');refreshAll()}
+function confirmDelTask(tid){const t=tasks.find(x=>x.id===tid);if(!t)return;document.getElementById('confirmMessage').textContent=`Apakah kamu yakin ingin menghapus task "${t.name}"?`;document.getElementById('confirmBtn').onclick=()=>{tasks=tasks.filter(x=>x.id!==tid);sd('pd_tasks',tasks);closeModal('confirmModal');refreshAll()};openModal('confirmModal')}
 
 // OVERVIEW
-function renderOverview(){const today=new Date();today.setHours(0,0,0,0);const total=tasks.length,overdue=tasks.filter(t=>t.status!=='done'&&new Date(t.deadline)<today).length,inProg=tasks.filter(t=>t.status==='progress'||t.status==='review').length,done=tasks.filter(t=>t.status==='done').length;
-document.getElementById('summaryGrid').innerHTML=`<div class="summary-card total"><div class="label">Total Tasks</div><div class="value">${total}</div></div><div class="summary-card overdue"><div class="label">Overdue</div><div class="value">${overdue}</div></div><div class="summary-card progress"><div class="label">In Progress</div><div class="value">${inProg}</div></div><div class="summary-card done"><div class="label">Completed</div><div class="value">${done}</div></div>`;
-const badge=document.getElementById('overdueBadge');if(overdue>0){badge.style.display='inline';badge.textContent=overdue}else badge.style.display='none';
-const threeDays=new Date(today);threeDays.setDate(threeDays.getDate()+3);const upcoming=tasks.filter(t=>{if(t.status==='done')return false;const dl=new Date(t.deadline);return dl>=today&&dl<=threeDays}),overdueList=tasks.filter(t=>t.status!=='done'&&new Date(t.deadline)<today);
-let nh='';overdueList.forEach(t=>{const days=Math.ceil((today-new Date(t.deadline))/864e5);const depts=getTaskDepts(t).map(d=>getDeptName(d)).join(', ');nh+=`<div class="notif-item" style="background:#fee2e2;border-color:#fecaca;color:#991b1b;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span><strong>${escHtml(t.name)}</strong> — overdue ${days} hari (${depts})</span><span class="notif-deadline">${t.deadline}</span></div>`});
-upcoming.forEach(t=>{const days=Math.ceil((new Date(t.deadline)-today)/864e5);const label=days===0?'Hari ini!':`${days} hari lagi`;const depts=getTaskDepts(t).map(d=>getDeptName(d)).join(', ');nh+=`<div class="notif-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><strong>${escHtml(t.name)}</strong> — deadline ${label} (${depts})</span><span class="notif-deadline">${t.deadline}</span></div>`});
+function renderOverview(){const today=new Date();today.setHours(0,0,0,0);const total=tasks.length,ov=tasks.filter(t=>t.status!=='done'&&new Date(t.deadline)<today).length,ip=tasks.filter(t=>t.status==='progress'||t.status==='review').length,dn2=tasks.filter(t=>t.status==='done').length;
+document.getElementById('summaryGrid').innerHTML=`<div class="summary-card total"><div class="label">Total Tasks</div><div class="value">${total}</div></div><div class="summary-card overdue"><div class="label">Overdue</div><div class="value">${ov}</div></div><div class="summary-card progress"><div class="label">In Progress</div><div class="value">${ip}</div></div><div class="summary-card done"><div class="label">Completed</div><div class="value">${dn2}</div></div>`;
+const badge=document.getElementById('overdueBadge');if(ov>0){badge.style.display='inline';badge.textContent=ov}else badge.style.display='none';
+const td3=new Date(today);td3.setDate(td3.getDate()+3);const up=tasks.filter(t=>{if(t.status==='done')return false;const dl=new Date(t.deadline);return dl>=today&&dl<=td3}),ol=tasks.filter(t=>t.status!=='done'&&new Date(t.deadline)<today);
+let nh='';ol.forEach(t=>{const d=Math.ceil((today-new Date(t.deadline))/864e5);const ds=gd(t).map(x=>dn(x)).join(', ');nh+=`<div class="notif-item" style="background:#fee2e2;border-color:#fecaca;color:#991b1b"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span><strong>${esc(t.name)}</strong> — overdue ${d} hari (${ds})</span><span class="notif-deadline">${t.deadline}</span></div>`});
+up.forEach(t=>{const d=Math.ceil((new Date(t.deadline)-today)/864e5);const lb=d===0?'Hari ini!':`${d} hari lagi`;const ds=gd(t).map(x=>dn(x)).join(', ');nh+=`<div class="notif-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><strong>${esc(t.name)}</strong> — deadline ${lb} (${ds})</span><span class="notif-deadline">${t.deadline}</span></div>`});
 document.getElementById('notificationsArea').innerHTML=nh;
-let ch='<div style="display:grid;gap:8px;">';const maxC=Math.max(...DEPARTMENTS.map(dd=>tasks.filter(t=>getTaskDepts(t).includes(dd.id)).length),1);DEPARTMENTS.forEach(d=>{const c=tasks.filter(t=>getTaskDepts(t).includes(d.id)).length;const pct=c/maxC*100;ch+=`<div style="display:flex;align-items:center;gap:12px;"><span style="font-size:12px;font-weight:600;min-width:160px;color:var(--text-secondary);">${d.name}</span><div style="flex:1;height:24px;background:var(--bg);border-radius:6px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:${d.color};border-radius:6px;transition:width 0.5s;min-width:${c>0?'2px':'0'};"></div></div><span style="font-size:12px;font-weight:700;min-width:24px;text-align:right;font-family:'JetBrains Mono',monospace;">${c}</span></div>`});ch+='</div>';document.getElementById('deptChart').innerHTML=ch}
+let ch='<div style="display:grid;gap:8px;">';const mx=Math.max(...DEPTS.map(dd=>tasks.filter(t=>gd(t).includes(dd.id)).length),1);DEPTS.forEach(d=>{const c=tasks.filter(t=>gd(t).includes(d.id)).length;ch+=`<div style="display:flex;align-items:center;gap:12px"><span style="font-size:12px;font-weight:600;min-width:160px;color:var(--text-secondary)">${d.name}</span><div style="flex:1;height:24px;background:var(--bg);border-radius:6px;overflow:hidden"><div style="height:100%;width:${c/mx*100}%;background:${d.color};border-radius:6px;transition:width .5s;min-width:${c>0?'2px':'0'}"></div></div><span style="font-size:12px;font-weight:700;min-width:24px;text-align:right;font-family:'JetBrains Mono',monospace">${c}</span></div>`});ch+='</div>';document.getElementById('deptChart').innerHTML=ch}
 
 // CALENDAR
-function renderCalendar(){const months=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],days=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];document.getElementById('calendarTitle').textContent=`${months[currentMonth]} ${currentYear}`;const firstDay=new Date(currentYear,currentMonth,1).getDay(),dim=new Date(currentYear,currentMonth+1,0).getDate(),dip=new Date(currentYear,currentMonth,0).getDate(),today=new Date();today.setHours(0,0,0,0);let h='';days.forEach(d=>{h+=`<div class="calendar-header-cell">${d}</div>`});let dc=1,ndc=1;for(let i=0;i<42;i++){let day,cls='',isCur=true;if(i<firstDay){day=dip-firstDay+i+1;cls='other-month';isCur=false}else if(dc>dim){day=ndc++;cls='other-month';isCur=false}else{day=dc++;const cd=new Date(currentYear,currentMonth,day);if(cd.getTime()===today.getTime())cls='today'}let chips='';if(isCur){const ds=`${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;const dt=tasks.filter(t=>t.deadline===ds);dt.slice(0,3).forEach(t=>{const fd=getTaskDepts(t)[0];chips+=`<div class="calendar-task-chip" style="background:${getDeptColor(fd)}" title="${escHtml(t.name)}" onclick="event.stopPropagation();openTaskModal('${t.id}')">${escHtml(t.name)}</div>`});if(dt.length>3)chips+=`<div style="font-size:10px;color:var(--text-secondary);font-weight:600;">+${dt.length-3} lagi</div>`}h+=`<div class="calendar-cell ${cls}"><div class="day-number">${day}</div>${chips}</div>`;if(i>=34&&dc>dim)break}document.getElementById('calendarGrid').innerHTML=h}
-function changeMonth(d){currentMonth+=d;if(currentMonth>11){currentMonth=0;currentYear++}if(currentMonth<0){currentMonth=11;currentYear--}renderCalendar()}
-function goToday(){const t=new Date();currentMonth=t.getMonth();currentYear=t.getFullYear();renderCalendar()}
+function renderCalendar(){const ms=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],ds=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];document.getElementById('calendarTitle').textContent=`${ms[curMonth]} ${curYear}`;const fd=new Date(curYear,curMonth,1).getDay(),dim=new Date(curYear,curMonth+1,0).getDate(),dip=new Date(curYear,curMonth,0).getDate(),today=new Date();today.setHours(0,0,0,0);let h='';ds.forEach(d=>{h+=`<div class="calendar-header-cell">${d}</div>`});let dct=1,ndc=1;for(let i=0;i<42;i++){let day,cls='',isCur=true;if(i<fd){day=dip-fd+i+1;cls='other-month';isCur=false}else if(dct>dim){day=ndc++;cls='other-month';isCur=false}else{day=dct++;if(new Date(curYear,curMonth,day).getTime()===today.getTime())cls='today'}let chips='';if(isCur){const ds2=`${curYear}-${String(curMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;const dt=tasks.filter(t=>t.deadline===ds2);dt.slice(0,3).forEach(t=>{chips+=`<div class="calendar-task-chip" style="background:${dc(gd(t)[0])}" title="${esc(t.name)}" onclick="event.stopPropagation();openTaskModal('${t.id}')">${esc(t.name)}</div>`});if(dt.length>3)chips+=`<div style="font-size:10px;color:var(--text-secondary);font-weight:600">+${dt.length-3}</div>`}h+=`<div class="calendar-cell ${cls}"><div class="day-number">${day}</div>${chips}</div>`;if(i>=34&&dct>dim)break}document.getElementById('calendarGrid').innerHTML=h}
+function changeMonth(d){curMonth+=d;if(curMonth>11){curMonth=0;curYear++}if(curMonth<0){curMonth=11;curYear--}renderCalendar()}
+function goToday(){curMonth=new Date().getMonth();curYear=new Date().getFullYear();renderCalendar()}
 
 // KANBAN
-function renderKanban(){const df=document.getElementById('kanbanDeptFilter').value,search=document.getElementById('kanbanSearch').value.toLowerCase();let filtered=tasks;if(df)filtered=filtered.filter(t=>taskMatchesDept(t,df));if(search)filtered=filtered.filter(t=>t.name.toLowerCase().includes(search)||(t.pic||'').toLowerCase().includes(search));const board=document.getElementById('kanbanBoard');board.innerHTML='';STATUSES.forEach(status=>{const st=filtered.filter(t=>t.status===status.id);const col=document.createElement('div');col.className='kanban-column';col.setAttribute('data-status',status.id);col.innerHTML=`<div class="kanban-column-header"><div class="dot" style="background:${status.color}"></div><h4>${status.name}</h4><span class="count">${st.length}</span></div><div class="kanban-cards" data-status="${status.id}">${st.map(t=>{const today=new Date();today.setHours(0,0,0,0);const ov=t.status!=='done'&&new Date(t.deadline)<today;return`<div class="kanban-card" data-id="${t.id}"><div class="task-name">${escHtml(t.name)}</div><div class="task-desc">${escHtml(t.description)}</div><div class="task-meta"><div>${renderDeptBadges(getTaskDepts(t))}</div><span class="deadline-text ${ov?'overdue':''}">${t.deadline}</span></div><div class="pic-text">👤 ${escHtml(t.pic||'-')}</div></div>`}).join('')}</div>`;board.appendChild(col)});document.querySelectorAll('.kanban-cards').forEach(el=>{new Sortable(el,{group:'kanban',animation:200,ghostClass:'sortable-ghost',dragClass:'sortable-drag',onEnd:function(evt){const tid=evt.item.getAttribute('data-id'),ns=evt.to.getAttribute('data-status'),task=tasks.find(t=>t.id===tid);if(task){task.status=ns;saveData('pd_tasks',tasks);refreshAll()}}})})}
+function renderKanban(){const df=document.getElementById('kanbanDeptFilter').value,se=document.getElementById('kanbanSearch').value.toLowerCase();let f=tasks;if(df)f=f.filter(t=>tmd(t,df));if(se)f=f.filter(t=>t.name.toLowerCase().includes(se)||(t.pic||'').toLowerCase().includes(se));const b=document.getElementById('kanbanBoard');b.innerHTML='';STATS.forEach(st=>{const stT=f.filter(t=>t.status===st.id);const col=document.createElement('div');col.className='kanban-column';col.dataset.status=st.id;col.innerHTML=`<div class="kanban-column-header"><div class="dot" style="background:${st.color}"></div><h4>${st.name}</h4><span class="count">${stT.length}</span></div><div class="kanban-cards" data-status="${st.id}">${stT.map(t=>{const today=new Date();today.setHours(0,0,0,0);const o=t.status!=='done'&&new Date(t.deadline)<today;return`<div class="kanban-card" data-id="${t.id}"><div class="task-name">${esc(t.name)}</div><div class="task-desc">${esc(t.description)}</div><div class="task-meta"><div>${rdb(gd(t))}</div><span class="deadline-text ${o?'overdue':''}">${t.deadline}</span></div><div class="pic-text">👤 ${esc(t.pic||'-')}</div></div>`}).join('')}</div>`;b.appendChild(col)});document.querySelectorAll('.kanban-cards').forEach(el=>{new Sortable(el,{group:'kanban',animation:200,ghostClass:'sortable-ghost',dragClass:'sortable-drag',onEnd:evt=>{const tid=evt.item.dataset.id,ns=evt.to.dataset.status,task=tasks.find(t=>t.id===tid);if(task){task.status=ns;sd('pd_tasks',tasks);refreshAll()}}})})}
 
 // TASK LIST
-function renderTaskList(){const df=document.getElementById('taskDeptFilter').value,sf=document.getElementById('taskStatusFilter').value,search=document.getElementById('taskSearch').value.toLowerCase();let f=tasks;if(df)f=f.filter(t=>taskMatchesDept(t,df));if(sf)f=f.filter(t=>t.status===sf);if(search)f=f.filter(t=>t.name.toLowerCase().includes(search)||(t.pic||'').toLowerCase().includes(search)||(t.description||'').toLowerCase().includes(search));f.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));const today=new Date();today.setHours(0,0,0,0);const tb=document.getElementById('taskTableBody');tb.innerHTML=f.map(t=>{const ov=t.status!=='done'&&new Date(t.deadline)<today;return`<tr><td style="font-weight:600">${escHtml(t.name)}</td><td style="color:var(--text-secondary);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escHtml(t.description)}">${escHtml(t.description||'-')}</td><td>${escHtml(t.pic||'-')}</td><td>${renderDeptBadges(getTaskDepts(t))}</td><td style="font-family:'JetBrains Mono',monospace;font-size:12px;${ov?'color:#ef4444;font-weight:700;':''}">${t.deadline}</td><td><span class="status-badge ${t.status}">${getStatusName(t.status)}</span></td><td><div class="action-btns"><button class="action-btn" onclick="openTaskModal('${t.id}')" title="Edit"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="confirmDeleteTask('${t.id}')" title="Hapus"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button></div></td></tr>`}).join('');if(f.length===0)tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-secondary)">Belum ada task. Klik "Tambah Task" untuk memulai.</td></tr>'}
+function renderTaskList(){const df=document.getElementById('taskDeptFilter').value,sf=document.getElementById('taskStatusFilter').value,se=document.getElementById('taskSearch').value.toLowerCase();let f=tasks;if(df)f=f.filter(t=>tmd(t,df));if(sf)f=f.filter(t=>t.status===sf);if(se)f=f.filter(t=>t.name.toLowerCase().includes(se)||(t.pic||'').toLowerCase().includes(se)||(t.description||'').toLowerCase().includes(se));f.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));const today=new Date();today.setHours(0,0,0,0);const tb=document.getElementById('taskTableBody');tb.innerHTML=f.map(t=>{const o=t.status!=='done'&&new Date(t.deadline)<today;return`<tr><td style="font-weight:600">${esc(t.name)}</td><td style="color:var(--text-secondary);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(t.description)}">${esc(t.description||'-')}</td><td>${esc(t.pic||'-')}</td><td>${rdb(gd(t))}</td><td style="font-family:'JetBrains Mono',monospace;font-size:12px;${o?'color:#ef4444;font-weight:700;':''}">${t.deadline}</td><td><span class="status-badge ${t.status}">${sn(t.status)}</span></td><td><div class="action-btns"><button class="action-btn" onclick="openTaskModal('${t.id}')" title="Edit"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn delete" onclick="confirmDelTask('${t.id}')" title="Hapus"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button></div></td></tr>`}).join('');if(f.length===0)tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-secondary)">Belum ada task.</td></tr>'}
 
-// NOTULENSI
-function openNotulensiModal(nid){document.getElementById('notulensiModalTitle').textContent=nid?'Edit Notulensi':'Buat Notulensi Baru';if(nid){const n=notulensiList.find(x=>x.id===nid);if(!n)return;document.getElementById('notulensiId').value=n.id;document.getElementById('notJudul').value=n.judul;document.getElementById('notTanggal').value=n.tanggal;document.getElementById('notPeserta').value=n.peserta;document.getElementById('notTopik').value=n.topik;document.getElementById('notLangkah').value=n.langkah;document.getElementById('notKesimpulan').value=n.kesimpulan}else{['notulensiId','notJudul','notTanggal','notPeserta','notTopik','notLangkah','notKesimpulan'].forEach(id=>document.getElementById(id).value='')}openModal('notulensiModal')}
-function saveNotulensi(){const id=document.getElementById('notulensiId').value;const data={judul:document.getElementById('notJudul').value.trim(),tanggal:document.getElementById('notTanggal').value,peserta:document.getElementById('notPeserta').value.trim(),topik:document.getElementById('notTopik').value.trim(),langkah:document.getElementById('notLangkah').value.trim(),kesimpulan:document.getElementById('notKesimpulan').value.trim()};if(!data.judul||!data.tanggal){alert('Judul dan Tanggal wajib diisi!');return}if(id){const i=notulensiList.findIndex(x=>x.id===id);if(i>=0)notulensiList[i]={...notulensiList[i],...data}}else{notulensiList.push({id:generateId(),...data,createdAt:new Date().toISOString()})}saveData('pd_notulensi',notulensiList);closeModal('notulensiModal');refreshAll()}
-function confirmDeleteNotulensi(nid){const n=notulensiList.find(x=>x.id===nid);if(!n)return;document.getElementById('confirmMessage').textContent=`Apakah kamu yakin ingin menghapus notulensi "${n.judul}"? Aksi ini tidak bisa dibatalkan.`;document.getElementById('confirmBtn').onclick=()=>{notulensiList=notulensiList.filter(x=>x.id!==nid);saveData('pd_notulensi',notulensiList);closeModal('confirmModal');refreshAll()};openModal('confirmModal')}
-function renderNotulensi(){const search=document.getElementById('notulensiSearch').value.toLowerCase();let f=notulensiList;if(search)f=f.filter(n=>n.judul.toLowerCase().includes(search)||n.kesimpulan.toLowerCase().includes(search));f.sort((a,b)=>new Date(b.tanggal)-new Date(a.tanggal));const list=document.getElementById('notulensiList');list.innerHTML=f.map(n=>`<div class="card notulensi-card" onclick="viewNotulensi('${n.id}')"><h4>${escHtml(n.judul)}</h4><div class="meta"><span>📅 ${n.tanggal}</span><span>👥 ${n.peserta.split(',').length} peserta</span></div><div class="kesimpulan">${escHtml(n.kesimpulan)}</div><div class="card-actions"><button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openNotulensiModal('${n.id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();confirmDeleteNotulensi('${n.id}')">Hapus</button></div></div>`).join('');if(f.length===0)list.innerHTML='<div class="card" style="padding:40px;text-align:center;color:var(--text-secondary)">Belum ada notulensi. Klik "Buat Notulensi" untuk memulai.</div>'}
-function viewNotulensi(nid){const n=notulensiList.find(x=>x.id===nid);if(!n)return;currentDetailNotulensiId=nid;document.getElementById('detailNotTitle').textContent=n.judul;const pl=n.peserta.split(',').map(p=>`<li>${escHtml(p.trim())}</li>`).join(''),tl=n.topik.split('\n').filter(x=>x.trim()).map(t=>`<li>${escHtml(t.trim())}</li>`).join(''),ll=n.langkah.split('\n').filter(x=>x.trim()).map(l=>`<li>${escHtml(l.trim())}</li>`).join('');document.getElementById('detailNotBody').innerHTML=`<div class="detail-section"><h4>Tanggal</h4><p>${n.tanggal}</p></div><div class="detail-section"><h4>Peserta Meeting</h4><ul>${pl}</ul></div><div class="detail-section"><h4>Topik Bahasan</h4><ul>${tl}</ul></div><div class="detail-section"><h4>Langkah yang Ditempuh</h4><ul>${ll}</ul></div><div class="detail-section"><h4>Kesimpulan</h4><p>${escHtml(n.kesimpulan)}</p></div>`;openModal('detailNotulensiModal')}
+// ===== NOTULENSI =====
+function renderNotulensi(){const se=document.getElementById('notulensiSearch').value.toLowerCase();let f=nots;if(se)f=f.filter(n=>n.judul.toLowerCase().includes(se)||(n.kesimpulan||'').toLowerCase().includes(se));f.sort((a,b)=>new Date(b.tanggal)-new Date(a.tanggal));const list=document.getElementById('notulensiList');list.innerHTML=f.map(n=>{const topics=getTopics(n);const topicCount=topics.length;return`<div class="card notulensi-card" onclick="viewNot('${n.id}')"><h4>${esc(n.judul)}</h4><div class="meta"><span>📅 ${n.tanggal}</span><span>👥 ${n.peserta?n.peserta.split(',').length:0} peserta</span><span>📋 ${topicCount} topik</span></div><div class="kesimpulan">${esc(n.kesimpulan)}</div><div class="card-actions"><button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openNotEditor('${n.id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();confirmDelNot('${n.id}')">Hapus</button></div></div>`}).join('');if(f.length===0)list.innerHTML='<div class="card" style="padding:40px;text-align:center;color:var(--text-secondary)">Belum ada notulensi.</div>'}
+function confirmDelNot(nid){const n=nots.find(x=>x.id===nid);if(!n)return;document.getElementById('confirmMessage').textContent=`Apakah kamu yakin ingin menghapus notulensi "${n.judul}"?`;document.getElementById('confirmBtn').onclick=()=>{nots=nots.filter(x=>x.id!==nid);sd('pd_notulensi',nots);closeModal('confirmModal');refreshAll()};openModal('confirmModal')}
 
-// SYNC NOTULENSI → TASKS
-function openSyncModal(){const n=notulensiList.find(x=>x.id===currentDetailNotulensiId);if(!n)return;closeModal('detailNotulensiModal');const items=n.langkah.split('\n').filter(x=>x.trim());let deptCbs=DEPARTMENTS.map(d=>`<label style="display:inline-flex;align-items:center;gap:4px;margin-right:8px;font-size:11px;cursor:pointer;"><input type="checkbox" class="sDCb" data-dept="${d.id}" style="accent-color:${d.color}"><span style="width:8px;height:8px;border-radius:50%;background:${d.color};display:inline-block;"></span>${d.name}</label>`).join('');let h='<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Centang langkah yang ingin dijadikan task, lalu isi PIC, departemen, dan deadline.</p>';items.forEach((l,i)=>{h+=`<div class="sync-item"><input type="checkbox" id="syncCheck${i}" checked><div style="flex:1"><div class="sync-text">${escHtml(l.trim())}</div><div class="sync-fields" style="flex-direction:column"><div style="display:flex;gap:8px"><input type="text" id="syncPic${i}" placeholder="PIC" style="width:140px"><input type="date" id="syncDeadline${i}"></div><div id="syncDepts${i}" style="margin-top:6px;line-height:2">${deptCbs.replace(/sDCb/g,`sDCb${i}`)}</div></div></div></div>`});document.getElementById('syncBody').innerHTML=h;openModal('syncModal')}
-function executeSyncTasks(){const n=notulensiList.find(x=>x.id===currentDetailNotulensiId);if(!n)return;const items=n.langkah.split('\n').filter(x=>x.trim());let created=0;for(let i=0;i<items.length;i++){if(!document.getElementById(`syncCheck${i}`).checked)continue;const pic=document.getElementById(`syncPic${i}`).value.trim(),deadline=document.getElementById(`syncDeadline${i}`).value;if(!deadline){alert(`Deadline untuk langkah ${i+1} belum diisi!`);return}const cbs=document.querySelectorAll(`#syncDepts${i} input[type="checkbox"]:checked`);const depts=Array.from(cbs).map(cb=>cb.getAttribute('data-dept'));if(depts.length===0){alert(`Pilih minimal 1 departemen untuk langkah ${i+1}!`);return}tasks.push({id:generateId(),name:items[i].trim(),description:`Dari notulensi: ${n.judul}`,pic,departments:depts,deadline,status:'todo',createdAt:new Date().toISOString(),sourceNotulensi:n.id});created++}saveData('pd_tasks',tasks);closeModal('syncModal');alert(`${created} task berhasil dibuat dari notulensi!`);refreshAll()}
+// VIEW DETAIL
+function viewNot(nid){const n=nots.find(x=>x.id===nid);if(!n)return;curDetailId=nid;document.getElementById('detailNotTitle').textContent=n.judul;const topics=getTopics(n);const pl=n.peserta?n.peserta.split(',').map(p=>`<li>${esc(p.trim())}</li>`).join(''):'<li>-</li>';
+let topicsHtml='';topics.forEach((t,i)=>{topicsHtml+=`<div class="detail-topic"><h5>Topik ${i+1}: ${esc(t.topik)}</h5><ul>${t.langkah.map(l=>`<li>${esc(l)}</li>`).join('')||'<li style="color:var(--text-secondary)">Belum ada langkah</li>'}</ul></div>`});
+document.getElementById('detailNotBody').innerHTML=`<div class="detail-section"><h4>Tanggal</h4><p>${n.tanggal}</p></div><div class="detail-section"><h4>Peserta Meeting</h4><ul>${pl}</ul></div><div class="detail-section"><h4>Topik & Langkah</h4>${topicsHtml||'<p style="color:var(--text-secondary)">Belum ada topik.</p>'}</div><div class="detail-section"><h4>Kesimpulan</h4><p>${esc(n.kesimpulan)}</p></div>`;
+openModal('detailModal')}
+
+// ===== NOTULENSI EDITOR (FULL PAGE) =====
+let editorTopics=[];
+function openNotEditor(nid){
+  document.getElementById('navEditor').style.display='flex';
+  if(nid){
+    const n=nots.find(x=>x.id===nid);if(!n)return;
+    document.getElementById('editorTitle').textContent='Edit Notulensi';
+    document.getElementById('editorNotId').value=n.id;
+    document.getElementById('edJudul').value=n.judul;
+    document.getElementById('edTanggal').value=n.tanggal;
+    document.getElementById('edPeserta').value=n.peserta||'';
+    document.getElementById('edKesimpulan').value=n.kesimpulan||'';
+    editorTopics=JSON.parse(JSON.stringify(getTopics(n)));
+  }else{
+    document.getElementById('editorTitle').textContent='Buat Notulensi Baru';
+    document.getElementById('editorNotId').value='';
+    document.getElementById('edJudul').value='';document.getElementById('edTanggal').value='';
+    document.getElementById('edPeserta').value='';document.getElementById('edKesimpulan').value='';
+    editorTopics=[{topik:'',langkah:['']}];
+  }
+  renderTopicCards();
+  switchTab('noteditor');
+  document.getElementById('navEditor').style.display='flex';
+}
+function cancelEditor(){switchTab('notulensi')}
+function renderTopicCards(){
+  const c=document.getElementById('topicsContainer');
+  c.innerHTML=editorTopics.map((t,ti)=>`<div class="topic-card" id="topic-${ti}">
+    <div class="topic-card-header">
+      <div class="topic-number">${ti+1}</div>
+      <input type="text" value="${esc(t.topik)}" placeholder="Judul topik bahasan..." oninput="editorTopics[${ti}].topik=this.value">
+      <button class="btn-remove-topic" onclick="removeTopicCard(${ti})" title="Hapus topik"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>
+    </div>
+    <div class="langkah-list" id="langkah-${ti}">
+      ${t.langkah.map((l,li)=>`<div class="langkah-item">
+        <span class="langkah-num">${li+1}.</span>
+        <input type="text" value="${esc(l)}" placeholder="Langkah aksi..." oninput="editorTopics[${ti}].langkah[${li}]=this.value">
+        <button class="btn-remove-langkah" onclick="removeLangkah(${ti},${li})" title="Hapus"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>`).join('')}
+    </div>
+    <button class="btn-add-langkah" onclick="addLangkah(${ti})">+ Tambah Langkah</button>
+  </div>`).join('');
+}
+function addTopicCard(){editorTopics.push({topik:'',langkah:['']});renderTopicCards();const cards=document.querySelectorAll('.topic-card');if(cards.length)cards[cards.length-1].querySelector('input').focus()}
+function removeTopicCard(ti){if(editorTopics.length<=1){alert('Minimal harus ada 1 topik.');return}if(!confirm(`Hapus Topik ${ti+1}?`))return;editorTopics.splice(ti,1);renderTopicCards()}
+function addLangkah(ti){editorTopics[ti].langkah.push('');renderTopicCards();const items=document.querySelectorAll(`#langkah-${ti} .langkah-item`);if(items.length)items[items.length-1].querySelector('input').focus()}
+function removeLangkah(ti,li){if(editorTopics[ti].langkah.length<=1){alert('Minimal harus ada 1 langkah per topik.');return}editorTopics[ti].langkah.splice(li,1);renderTopicCards()}
+
+function saveNotEditor(){
+  const id=document.getElementById('editorNotId').value;
+  const data={judul:document.getElementById('edJudul').value.trim(),tanggal:document.getElementById('edTanggal').value,peserta:document.getElementById('edPeserta').value.trim(),topics:editorTopics.map(t=>({topik:t.topik.trim(),langkah:t.langkah.map(l=>l.trim()).filter(l=>l)})).filter(t=>t.topik||t.langkah.length),kesimpulan:document.getElementById('edKesimpulan').value.trim()};
+  if(!data.judul||!data.tanggal){alert('Judul dan Tanggal wajib diisi!');return}
+  // Remove old format fields
+  if(id){const i=nots.findIndex(x=>x.id===id);if(i>=0){nots[i]={...nots[i],...data};delete nots[i].topik;delete nots[i].langkah}}
+  else nots.push({id:gid(),...data,createdAt:new Date().toISOString()});
+  sd('pd_notulensi',nots);switchTab('notulensi')
+}
+
+// SYNC
+function openSyncModal(){const n=nots.find(x=>x.id===curDetailId);if(!n)return;closeModal('detailModal');
+const items=getAllLangkah(n);
+let deptCbs=DEPTS.map(d=>`<label style="display:inline-flex;align-items:center;gap:4px;margin-right:8px;font-size:11px;cursor:pointer"><input type="checkbox" class="sDCb" data-dept="${d.id}" style="accent-color:${d.color}"><span style="width:8px;height:8px;border-radius:50%;background:${d.color};display:inline-block"></span>${d.name}</label>`).join('');
+let h='<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Centang langkah yang ingin dijadikan task.</p>';
+items.forEach((item,i)=>{h+=`<div class="sync-item"><input type="checkbox" id="sC${i}" checked><div style="flex:1"><div class="sync-topic-label">Topik: ${esc(item.topik)}</div><div class="sync-text">${esc(item.langkah)}</div><div class="sync-fields" style="flex-direction:column"><div style="display:flex;gap:8px"><input type="text" id="sP${i}" placeholder="PIC" style="width:140px"><input type="date" id="sD${i}"></div><div id="sDp${i}" style="margin-top:6px;line-height:2">${deptCbs.replace(/sDCb/g,`sDCb${i}`)}</div></div></div></div>`});
+document.getElementById('syncBody').innerHTML=h;openModal('syncModal')}
+function execSync(){const n=nots.find(x=>x.id===curDetailId);if(!n)return;const items=getAllLangkah(n);let cr=0;
+for(let i=0;i<items.length;i++){if(!document.getElementById(`sC${i}`).checked)continue;const pic=document.getElementById(`sP${i}`).value.trim(),dl=document.getElementById(`sD${i}`).value;if(!dl){alert(`Deadline langkah ${i+1} belum diisi!`);return}const cbs=document.querySelectorAll(`#sDp${i} input:checked`);const deps=Array.from(cbs).map(cb=>cb.dataset.dept);if(!deps.length){alert(`Pilih departemen untuk langkah ${i+1}!`);return}
+tasks.push({id:gid(),name:items[i].langkah,description:`Topik: ${items[i].topik} | Dari notulensi: ${n.judul}`,pic,departments:deps,deadline:dl,status:'todo',createdAt:new Date().toISOString(),sourceNotulensi:n.id});cr++}
+sd('pd_tasks',tasks);closeModal('syncModal');alert(`${cr} task berhasil dibuat!`);refreshAll()}
 
 // EXPORT
-function populateExportDropdowns(){const ns=document.getElementById('exportNotulensiSelect');ns.innerHTML=notulensiList.length===0?'<option value="">Belum ada notulensi</option>':notulensiList.map(n=>`<option value="${n.id}">${escHtml(n.judul)} (${n.tanggal})</option>`).join('');const ts=document.getElementById('gcalTaskSelect');const active=tasks.filter(t=>t.status!=='done');ts.innerHTML=active.length===0?'<option value="">Belum ada task aktif</option>':active.map(t=>`<option value="${t.id}">${escHtml(t.name)} (${t.deadline})</option>`).join('');renderBulkList()}
-function getSelectedNotulensi(){return notulensiList.find(n=>n.id===document.getElementById('exportNotulensiSelect').value)}
-function exportDocx(){const n=getSelectedNotulensi();if(!n){alert('Pilih notulensi terlebih dahulu!');return}const p=n.peserta.split(',').map(x=>x.trim()).filter(x=>x),t=n.topik.split('\n').map(x=>x.trim()).filter(x=>x),l=n.langkah.split('\n').map(x=>x.trim()).filter(x=>x);const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>${escHtml(n.judul)}</title><style>body{font-family:Calibri,sans-serif;font-size:12pt;color:#333;margin:40px}h1{font-size:20pt;color:#1a1d2e;border-bottom:3px solid #6366f1;padding-bottom:8px}h2{font-size:14pt;color:#6366f1;margin-top:20px}ul{margin:8px 0;padding-left:24px}li{margin-bottom:4px}.meta{color:#666;font-size:11pt;margin-bottom:16px}</style></head><body><h1>Notulensi: ${escHtml(n.judul)}</h1><p class="meta">Tanggal: ${n.tanggal}</p><h2>Peserta Meeting</h2><ul>${p.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul><h2>Topik Bahasan</h2><ul>${t.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul><h2>Langkah yang Ditempuh</h2><ul>${l.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul><h2>Kesimpulan</h2><p>${escHtml(n.kesimpulan)}</p></body></html>`;downloadBlob(new Blob(['\ufeff',html],{type:'application/msword'}),`Notulensi_${n.judul.replace(/[^a-zA-Z0-9]/g,'_')}.doc`)}
-function exportPDF(){const n=getSelectedNotulensi();if(!n){alert('Pilih notulensi terlebih dahulu!');return}const p=n.peserta.split(',').map(x=>x.trim()).filter(x=>x),t=n.topik.split('\n').map(x=>x.trim()).filter(x=>x),l=n.langkah.split('\n').map(x=>x.trim()).filter(x=>x);const w=window.open('','_blank');w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Notulensi - ${escHtml(n.judul)}</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',Calibri,sans-serif;padding:48px;color:#1a1d2e;line-height:1.6}h1{font-size:22px;border-bottom:3px solid #6366f1;padding-bottom:8px;margin-bottom:8px}.meta{color:#666;font-size:13px;margin-bottom:24px}h2{font-size:15px;color:#6366f1;margin:20px 0 8px;text-transform:uppercase;letter-spacing:0.5px}ul{padding-left:24px;margin-bottom:12px}li{margin-bottom:4px;font-size:14px}p{font-size:14px;margin-bottom:12px}@media print{body{padding:24px}}</style></head><body><h1>Notulensi: ${escHtml(n.judul)}</h1><p class="meta">Tanggal: ${n.tanggal} | Peserta: ${p.length} orang</p><h2>Peserta Meeting</h2><ul>${p.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul><h2>Topik Bahasan</h2><ul>${t.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul><h2>Langkah yang Ditempuh</h2><ul>${l.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul><h2>Kesimpulan</h2><p>${escHtml(n.kesimpulan)}</p></body></html>`);w.document.close();setTimeout(()=>w.print(),500)}
+function popExportDD(){const ns2=document.getElementById('exportNotulensiSelect');ns2.innerHTML=nots.length===0?'<option value="">Belum ada notulensi</option>':nots.map(n=>`<option value="${n.id}">${esc(n.judul)} (${n.tanggal})</option>`).join('');const ts2=document.getElementById('gcalTaskSelect');const act=tasks.filter(t=>t.status!=='done');ts2.innerHTML=act.length===0?'<option value="">Belum ada task aktif</option>':act.map(t=>`<option value="${t.id}">${esc(t.name)} (${t.deadline})</option>`).join('');renderBulkList()}
+function getSelNot(){return nots.find(n=>n.id===document.getElementById('exportNotulensiSelect').value)}
 
-// GOOGLE CALENDAR
-function formatICSDate(d){return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')}
-function buildICSEvent(t){const dl=new Date(t.deadline),dtS=formatICSDate(dl),dtE=formatICSDate(new Date(dl.getTime()+864e5)),depts=getTaskDepts(t).map(d=>getDeptName(d)).join(', ');return`BEGIN:VEVENT\nDTSTART;VALUE=DATE:${dtS}\nDTEND;VALUE=DATE:${dtE}\nSUMMARY:${t.name}\nDESCRIPTION:${(t.description||'').replace(/\n/g,'\\n')}\\nPIC: ${t.pic||'-'}\\nDept: ${depts}\nSTATUS:CONFIRMED\nUID:${t.id}@personal-dashboard\nEND:VEVENT`}
-function openGCalURL(t){const dl=new Date(t.deadline),dtS=formatICSDate(dl),dtE=formatICSDate(new Date(dl.getTime()+864e5)),depts=getTaskDepts(t).map(d=>getDeptName(d)).join(', ');window.open(`https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.name)}&dates=${dtS}/${dtE}&details=${encodeURIComponent(`${t.description||''}\nPIC: ${t.pic||'-'}\nDept: ${depts}`)}`,'_blank')}
-function downloadICS(){const t=tasks.find(x=>x.id===document.getElementById('gcalTaskSelect').value);if(!t){alert('Pilih task terlebih dahulu!');return}downloadBlob(new Blob([`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Personal Dashboard//Task//ID\n${buildICSEvent(t)}\nEND:VCALENDAR`],{type:'text/calendar'}),`Task_${t.name.replace(/[^a-zA-Z0-9]/g,'_')}.ics`)}
-function openGoogleCalendar(){const t=tasks.find(x=>x.id===document.getElementById('gcalTaskSelect').value);if(!t){alert('Pilih task terlebih dahulu!');return}openGCalURL(t)}
+function buildNotHTML(n,forWord){
+  const topics=getTopics(n);const peserta=n.peserta?n.peserta.split(',').map(x=>x.trim()).filter(x=>x):[];
+  let topicsHTML='';topics.forEach(t=>{topicsHTML+=`<h2>${esc(t.topik)}</h2><ul>${t.langkah.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>`});
+  const style=forWord?'body{font-family:Calibri,sans-serif;font-size:12pt;color:#333;margin:40px}h1{font-size:20pt;color:#1a1d2e;border-bottom:3px solid #6366f1;padding-bottom:8px}h2{font-size:14pt;color:#6366f1;margin-top:20px}h3{font-size:12pt;color:#444;margin-top:14px}ul{margin:8px 0;padding-left:24px}li{margin-bottom:4px}.meta{color:#666;font-size:11pt;margin-bottom:16px}'
+    :'*{margin:0;padding:0;box-sizing:border-box}body{font-family:"Segoe UI",Calibri,sans-serif;padding:48px;color:#1a1d2e;line-height:1.6}h1{font-size:22px;border-bottom:3px solid #6366f1;padding-bottom:8px;margin-bottom:8px}.meta{color:#666;font-size:13px;margin-bottom:24px}h2{font-size:15px;color:#6366f1;margin:20px 0 8px;text-transform:uppercase;letter-spacing:.5px}ul{padding-left:24px;margin-bottom:12px}li{margin-bottom:4px;font-size:14px}p{font-size:14px;margin-bottom:12px}@media print{body{padding:24px}}';
+  const prefix=forWord?'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">':'<!DOCTYPE html><html>';
+  return`${prefix}<head><meta charset="utf-8"><title>${esc(n.judul)}</title><style>${style}</style></head><body><h1>Notulensi: ${esc(n.judul)}</h1><p class="meta">Tanggal: ${n.tanggal} | Peserta: ${peserta.length} orang</p><h2>Peserta Meeting</h2><ul>${peserta.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${topicsHTML}<h2>Kesimpulan</h2><p>${esc(n.kesimpulan)}</p></body></html>`}
 
-// BULK SYNC
-function renderBulkList(){const df=document.getElementById('bulkDeptFilter').value;let active=tasks.filter(t=>t.status!=='done');if(df)active=active.filter(t=>taskMatchesDept(t,df));active.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));document.getElementById('bulkTaskList').innerHTML=active.length===0?'<p style="text-align:center;color:var(--text-secondary);padding:20px">Tidak ada task aktif.</p>':active.map(t=>`<div class="bulk-task-item"><input type="checkbox" class="bulk-cb" value="${t.id}" checked><div class="task-info"><div class="t-name">${escHtml(t.name)}</div><div class="t-meta">${renderDeptBadges(getTaskDepts(t))} · ${t.deadline} · ${escHtml(t.pic||'-')}</div></div></div>`).join('')}
+function exportDocx(){const n=getSelNot();if(!n){alert('Pilih notulensi!');return}dlBlob(new Blob(['\ufeff',buildNotHTML(n,true)],{type:'application/msword'}),`Notulensi_${n.judul.replace(/[^a-zA-Z0-9]/g,'_')}.doc`)}
+function exportPDF(){const n=getSelNot();if(!n){alert('Pilih notulensi!');return}const w=window.open('','_blank');w.document.write(buildNotHTML(n,false));w.document.close();setTimeout(()=>w.print(),500)}
+
+// GCAL
+function fmtICS(d){return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')}
+function icsEvt(t){const dl=new Date(t.deadline),s=fmtICS(dl),e=fmtICS(new Date(dl.getTime()+864e5)),ds=gd(t).map(x=>dn(x)).join(', ');return`BEGIN:VEVENT\nDTSTART;VALUE=DATE:${s}\nDTEND;VALUE=DATE:${e}\nSUMMARY:${t.name}\nDESCRIPTION:${(t.description||'').replace(/\n/g,'\\n')}\\nPIC: ${t.pic||'-'}\\nDept: ${ds}\nUID:${t.id}@pd\nEND:VEVENT`}
+function gcURL(t){const dl=new Date(t.deadline),s=fmtICS(dl),e=fmtICS(new Date(dl.getTime()+864e5)),ds=gd(t).map(x=>dn(x)).join(', ');window.open(`https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.name)}&dates=${s}/${e}&details=${encodeURIComponent(`${t.description||''}\nPIC: ${t.pic||'-'}\nDept: ${ds}`)}`,'_blank')}
+function downloadICS(){const t=tasks.find(x=>x.id===document.getElementById('gcalTaskSelect').value);if(!t){alert('Pilih task!');return}dlBlob(new Blob([`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//PD//Task//ID\n${icsEvt(t)}\nEND:VCALENDAR`],{type:'text/calendar'}),`Task_${t.name.replace(/[^a-zA-Z0-9]/g,'_')}.ics`)}
+function openSingleGCal(){const t=tasks.find(x=>x.id===document.getElementById('gcalTaskSelect').value);if(!t){alert('Pilih task!');return}gcURL(t)}
+
+// BULK
+function renderBulkList(){const df=document.getElementById('bulkDeptFilter').value;let a=tasks.filter(t=>t.status!=='done');if(df)a=a.filter(t=>tmd(t,df));a.sort((x,y)=>new Date(x.deadline)-new Date(y.deadline));document.getElementById('bulkTaskList').innerHTML=a.length===0?'<p style="text-align:center;color:var(--text-secondary);padding:20px">Tidak ada task aktif.</p>':a.map(t=>`<div class="bulk-task-item"><input type="checkbox" class="bulk-cb" value="${t.id}" checked><div class="task-info"><div class="t-name">${esc(t.name)}</div><div class="t-meta">${rdb(gd(t))} · ${t.deadline}</div></div></div>`).join('')}
 function bulkSelectAll(){document.querySelectorAll('.bulk-cb').forEach(cb=>cb.checked=true)}
 function bulkDeselectAll(){document.querySelectorAll('.bulk-cb').forEach(cb=>cb.checked=false)}
-function downloadBulkICS(){const sel=Array.from(document.querySelectorAll('.bulk-cb:checked')).map(cb=>cb.value);if(sel.length===0){alert('Pilih minimal 1 task untuk di-sync!');return}const events=sel.map(id=>tasks.find(t=>t.id===id)).filter(Boolean).map(buildICSEvent).join('\n');downloadBlob(new Blob([`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Personal Dashboard//Bulk Sync//ID\n${events}\nEND:VCALENDAR`],{type:'text/calendar'}),`BulkTasks_${new Date().toISOString().slice(0,10)}.ics`)}
-function openBulkGoogleCalendar(){const sel=Array.from(document.querySelectorAll('.bulk-cb:checked')).map(cb=>cb.value);if(sel.length===0){alert('Pilih minimal 1 task!');return}if(sel.length>5&&!confirm(`Kamu akan membuka ${sel.length} tab Google Calendar sekaligus. Lanjutkan?`))return;sel.forEach(id=>{const t=tasks.find(x=>x.id===id);if(t)openGCalURL(t)})}
+function downloadBulkICS(){const sel=Array.from(document.querySelectorAll('.bulk-cb:checked')).map(cb=>cb.value);if(!sel.length){alert('Pilih minimal 1 task!');return}dlBlob(new Blob([`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//PD//Bulk//ID\n${sel.map(id=>tasks.find(t=>t.id===id)).filter(Boolean).map(icsEvt).join('\n')}\nEND:VCALENDAR`],{type:'text/calendar'}),`BulkTasks_${new Date().toISOString().slice(0,10)}.ics`)}
+function openBulkGCal(){const sel=Array.from(document.querySelectorAll('.bulk-cb:checked')).map(cb=>cb.value);if(!sel.length){alert('Pilih task!');return}if(sel.length>5&&!confirm(`Buka ${sel.length} tab?`))return;sel.forEach(id=>{const t=tasks.find(x=>x.id===id);if(t)gcURL(t)})}
 
 // UTILS
-function downloadBlob(blob,filename){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(a.href)}
-function refreshAll(){renderOverview();renderCalendar();renderKanban();renderTaskList();renderNotulensi();populateExportDropdowns()}
+function dlBlob(b,f){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(a.href)}
+function refreshAll(){renderOverview();renderCalendar();renderKanban();renderTaskList();renderNotulensi();popExportDD()}
 
 // INIT
-populateDeptDropdowns();refreshAll();
+popDeptDD();refreshAll();
 </script>
 </body>
 </html>
+Update: full page notulensi editor + structured topics
